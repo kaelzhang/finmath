@@ -1,4 +1,16 @@
-'use strict';
+const test = require('ava')
+const {
+  simple
+} = require('..')
 
-var expect = require('chai').expect;
-var moving_averages = require('../');
+test('simple', t => {
+  const sma = simple({
+    n: 5,
+    get: (m) => {
+      return m
+    }
+  })
+  .head(10)
+
+  t.is(sma.value(), 8)
+})
