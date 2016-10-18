@@ -11,7 +11,7 @@
 
 # moving-averages
 
-<!-- description -->
+Utility methods for [Moving average](https://en.wikipedia.org/wiki/Moving_average)
 
 ## Install
 
@@ -22,7 +22,15 @@ $ npm install moving-averages --save
 ## Usage
 
 ```js
-var moving_averages = require('moving-averages');
+const {
+  simple,
+  weighted,     // comming ...
+  exponential,  // comming ...
+
+} = require('moving-averages')
+
+const sma = simple()
+
 ```
 
 ## License
