@@ -29,9 +29,25 @@ const {
 
 } = require('moving-averages')
 
-const sma = simple()
-
+simple([1, 2, 3, 4, 5], 3)     // [2, 3, 4]
+simple([1, 2, 3, 4, 5])        // [3], `size` default to the length of the list
 ```
+
+### simple(datum, size)
+
+returns `Array.<Number>`
+
+- **datum** `Array.<Number>` the datum
+- **size** `Number=` the data period
+
+### exponential(datum, size, alpha)
+
+returns `Array.<Number>`
+
+- **alpha** `Number` represents the degree of weighting decrease, i.e. the constant smoothing factor between `0` and `1`. A higher `alpha` discounts older observations faster.
+
+### weighted(datum, size)
+
 
 ## License
 
