@@ -24,8 +24,8 @@ $ npm install moving-averages --save
 ```js
 const {
   simple,
-  weighted,     // comming ...
-  exponential,  // comming ...
+  exponential,
+  weighted,     // what's comming ...
 
 } = require('moving-averages')
 
@@ -45,8 +45,6 @@ returns `Array.<Number>`
 returns `Array.<Number>`
 
 - **alpha** `Number` represents the degree of weighting decrease, i.e. the constant smoothing factor between `0` and `1`. A higher `alpha` discounts older observations faster.
-
-### weighted(datum, size)
 
 
 ## License
