@@ -1,5 +1,6 @@
 # yarn
 .lock
+/lib
 
 # Numerous always-ignore extensions
 *.bak

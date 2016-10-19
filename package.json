@@ -1,10 +1,12 @@
 {
   "name": "moving-averages",
-  "version": "1.0.1",
-  "description": "moving-averages",
+  "version": "1.0.2",
+  "description": "The collections of simple, weighted, and exponential moving averages.",
   "main": "index.js",
   "scripts": {
-    "test": "babel src --out-dir lib && ava --verbose --timeout=10s"
+    "test": "ava --verbose --timeout=10s",
+    "build": "babel src --out-dir lib",
+    "pre-publish": "babel src --out-dir lib"
   },
   "repository": {
     "type": "git",

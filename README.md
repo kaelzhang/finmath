@@ -11,7 +11,7 @@
 
 # moving-averages
 
-Utility methods for [Moving average](https://en.wikipedia.org/wiki/Moving_average)
+Utility methods for [Moving average](https://en.wikipedia.org/wiki/Moving_average).
 
 ## Install
 
@@ -30,7 +30,9 @@ const {
 } = require('moving-averages')
 
 simple([1, 2, 3, 4, 5], 3)     // [2, 3, 4]
-simple([1, 2, 3, 4, 5])        // [3], `size` default to the length of the list
+
+// `size` default to the length of the list
+simple([1, 2, 3, 4, 5])        // [3]
 ```
 
 ### simple(datum, size)
