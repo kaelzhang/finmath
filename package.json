@@ -1,6 +1,6 @@
 {
   "name": "moving-averages",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "The collections of simple, weighted, and exponential moving averages.",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,8 @@
     "url": "git://github.com/kaelzhang/moving-averages.git"
   },
   "keywords": [
+    "moving average",
+    "moving-average",
     "moving-averages",
     "ma",
     "simple moving average",
