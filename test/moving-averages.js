@@ -76,7 +76,7 @@ function simple_batch_run ({
 
   const d = `${type}: ${JSON.stringify(datum)}, size=${original_size}, has error: ${!!error}`
 
-  const m = ma[type].batch
+  const m = ma[type].averages
 
   test(d, t => {
 

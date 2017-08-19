@@ -29,7 +29,8 @@ import {
 } from 'moving-averages'
 
 // Simple Moving Average
-// `simple()` receives item into the collection, calculates the sma(simple moving average) of the whole collection
+// `simple()` receives item into the collection,
+// calculates the sma(simple moving average) of the whole collection
 const s = simple()
 s.push(1)  // 1
 s.push(2)  // 1.5
@@ -42,29 +43,51 @@ s.length   // 4,   the length of the collection
 // for details of the parameter `alpha`, see:
 // https://en.wikipedia.org/wiki/Moving_average#Exponential_moving_average
 const e = exponential(alpha)
+e.push(1)
+e.value
 
 // Cumulative Moving Average
 const c = cumulative()
+c.push(1)
+c.value
 ```
 
-## For Simple Moving Averages
-
-### new simple.Mover(datum, size)
-
-returns `Array.<Number>`
-
-- **datum** `Array.<Number>` the datum
-- **size** `Number=` the data period
-
-#### simple.adder()
-#### simple.adder(size)
-
-### exponential(datum, size, alpha)
-
-returns `Array.<Number>`
+### exponential(alpha)
 
 - **alpha** `Number` represents the degree of weighting decrease, i.e. the constant smoothing factor between `0` and `1`. A higher `alpha` discounts older observations faster.
 
+
+## For Simple Moving Averages
+
+### new simple.Period(size)
+
+- **size** `Number` the size of the period
+
+returns `Array.<Number>`
+
+```js
+// `simple.mover(3)` only calculates the sma of the latest 3 items
+const period = new simple.Period(3)
+period.push(1)  // undefined, there is only one(less than 3) item in the collection, skip calculating
+period.push(2)  // undefined
+period.push(3)  // 2
+period.push(4)  // 3, the sma of [2, 3, 4], 1 is abandoned
+period.value    // 3
+```
+
+### simple.averages(datum, [size])
+
+- **datum** `Array.<Number>` the datum
+- **size** `Number=` the size of the data period. Defaults to the length of the `datum`
+
+Returns `Array.<Number>`
+
+```js
+simple.averages([1, 2, 3, 4, 5], 3)     // [2, 3, 4]
+
+// `size` default to the length of the list
+simple.averages([1, 2, 3, 4, 5])        // [3]
+```
 
 ## License
 

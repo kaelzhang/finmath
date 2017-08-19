@@ -34,7 +34,7 @@ export class Cache {
 }
 
 
-export class Mover {
+export class Period {
   constructor (size, {
     cache
   }) {

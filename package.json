@@ -1,7 +1,7 @@
 {
   "name": "moving-averages",
-  "version": "1.0.4",
-  "description": "The collections of simple, weighted, and exponential moving averages.",
+  "version": "2.0.0",
+  "description": "The collections of simple, cumulative, and exponential moving averages.",
   "main": "lib/index.js",
   "module": "src/index.js",
   "scripts": {
@@ -21,7 +21,7 @@
     "ma",
     "simple moving average",
     "exponential moving average",
-    "weighted moving average",
+    "cumulative moving average",
     "sma",
     "ema",
     "wma"

@@ -1,7 +1,7 @@
 import {
   check,
   Cache,
-  Mover,
+  Period,
   Adder
 } from './common'
 
@@ -20,7 +20,7 @@ class SimpleAdder extends Adder {
 }
 
 
-class SimpleMover extends Mover {
+class SimplePeriod extends Period {
   _prepare (value, index) {
     this._sum += value
   }
@@ -37,10 +37,10 @@ class SimpleMover extends Mover {
 
 
 // @param {Number=datum.length} setSize
-function batch (...args) {
+function averages (...args) {
   const [datum, size] = check(...args)
 
-  const mover = new SimpleMover(size, {
+  const mover = new SimplePeriod(size, {
     cache: new Cache(datum)
   })
 
@@ -65,5 +65,5 @@ export default function simple () {
 }
 
 
-simple.Mover = SimpleMover
-simple.batch = batch
+simple.Period = SimplePeriod
+simple.averages = averages
