@@ -11,7 +11,7 @@
 
 # moving-averages
 
-Utility methods for [Moving average](https://en.wikipedia.org/wiki/Moving_average).
+Utility methods for [Moving average](https://en.wikipedia.org/wiki/Moving_average), including simple moving average, cumulative moving average, exponential moving average.
 
 ## Install
 
