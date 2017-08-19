@@ -19,7 +19,7 @@ Utility methods for [Moving average](https://en.wikipedia.org/wiki/Moving_averag
 $ npm install moving-averages --save
 ```
 
-## Usage `simple`
+## Usage
 
 ```js
 import {
@@ -59,9 +59,24 @@ c.value
 
 ## For Simple Moving Averages
 
-### new simple.Period(size)
+### simple.averages(datum, [size])
+
+- **datum** `Array.<Number>` the datum
+- **size** `Number=` the size of the data period. Defaults to the length of the `datum`
+
+Returns `Array.<Number>`
+
+```js
+simple.averages([1, 2, 3, 4, 5], 3)     // [2, 3, 4]
+
+// `size` default to the length of the list
+simple.averages([1, 2, 3, 4, 5])        // [3]
+```
+
+### new simple.Period(size, {cache})
 
 - **size** `Number` the size of the period
+- **cache** `simple.Cache=` for most cases, it is unnecessary.
 
 returns `Array.<Number>`
 
@@ -75,18 +90,30 @@ period.push(4)  // 3, the sma of [2, 3, 4], 1 is abandoned
 period.value    // 3
 ```
 
-### simple.averages(datum, [size])
+### interface `simple.Cache`
 
-- **datum** `Array.<Number>` the datum
-- **size** `Number=` the size of the data period. Defaults to the length of the `datum`
+The purpose of `simple.Cache` is to reuse existing data and avoid unnecessary memory cost.
 
-Returns `Array.<Number>`
+- **get** `function(index)`
+- **set** `function(index, value)`
 
 ```js
-simple.averages([1, 2, 3, 4, 5], 3)     // [2, 3, 4]
+const datum = [1, 2, 3, 4, 5]
+const cache = {
+  set () {},
+  get: i => datum[i]
+}
+const period = new simple.Period(3, {cache})
 
-// `size` default to the length of the list
-simple.averages([1, 2, 3, 4, 5])        // [3]
+datum.forEach(value => {
+  console.log(period.push(value))
+})
+
+// undefined
+// undefined
+// 2
+// 3
+// 4
 ```
 
 ## License

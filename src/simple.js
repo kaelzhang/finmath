@@ -36,16 +36,20 @@ class SimplePeriod extends Period {
 }
 
 
+class SimpleCache extends Cache {
+  set () {}
+}
+
+
 // @param {Number=datum.length} setSize
 function averages (...args) {
   const [datum, size] = check(...args)
 
   const mover = new SimplePeriod(size, {
-    cache: new Cache(datum)
+    cache: new SimpleCache(datum)
   })
 
   return datum.reduce((prev, current) => {
-
     const ma = prev.mover.push(current)
     if (ma) {
       prev.sma.push(ma)
@@ -67,3 +71,4 @@ export default function simple () {
 
 simple.Period = SimplePeriod
 simple.averages = averages
+simple.Cache = Cache
