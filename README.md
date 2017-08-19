@@ -19,20 +19,36 @@ Utility methods for [Moving average](https://en.wikipedia.org/wiki/Moving_averag
 $ npm install moving-averages --save
 ```
 
-## Usage
+## Usage `simple`
 
 ```js
-const {
-  simple,
-  exponential,
-  weighted,     // what's comming ...
-
-} = require('moving-averages')
+import {
+  simple
+} from 'moving-averages'
 
 simple([1, 2, 3, 4, 5], 3)     // [2, 3, 4]
 
 // `size` default to the length of the list
 simple([1, 2, 3, 4, 5])        // [3]
+
+
+// `simple.adder()` receives item into the collection, calculates the sma(simple moving average) of the whole collection
+const adder = simple.adder()
+adder.push(1)  // 1
+adder.push(2)  // 1.5
+adder.push(3)  // 2
+adder.push(4)  // 2.5
+adder.value    // 2.5, the sma
+adder.length   // 4,   the length of the collection
+
+
+// `simple.mover(3)` only calculates the sma of the latest 3 items
+const mover = simple.mover(3)
+mover.push(1)  // undefined, there is only one(less than 3) item in the collection, skip calculating
+mover.push(2)  // undefined
+mover.push(3)  // 2
+mover.push(4)  // 3, the sma of [2, 3, 4], 1 is abandoned
+mover.value    // 3
 ```
 
 ### simple(datum, size)
@@ -41,6 +57,9 @@ returns `Array.<Number>`
 
 - **datum** `Array.<Number>` the datum
 - **size** `Number=` the data period
+
+#### simple.adder()
+#### simple.adder(size)
 
 ### exponential(datum, size, alpha)
 

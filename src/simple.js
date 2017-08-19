@@ -1,27 +1,64 @@
-import {check} from './common'
+import {
+  check,
+  Cache,
+  Mover,
+  Adder
+} from './common'
+
+// MAsimple = (N1 + ... + Nn) / n
+
+class SimpleAdder extends Adder {
+  constructor () {
+    super()
+    this._sum = 0
+  }
+
+  push (value) {
+    const sum = this._sum += value
+    return this._ma = sum / ++ this._length
+  }
+}
+
+
+class SimpleMover extends Mover {
+  _prepare (value, index) {
+    this._sum += value
+  }
+
+  _first (value, index) {
+    return (this._sum += value) / this._size
+  }
+
+  _then (value, index) {
+    const size = this._size
+    return (this._sum += value - this._cache.get(index - size)) / size
+  }
+}
+
 
 // @param {Number=datum.length} setSize
 export default function simple (...args) {
   const [datum, size] = check(...args)
 
-  return datum.reduce((prev, current, index, array) => {
-    if (index < size - 1) {
-      prev.sum += current
+  const mover = new SimpleMover(size, {
+    cache: new Cache(datum)
+  })
 
-    } else if (index === size - 1) {
-      prev.sum += current
-      prev.ma.push(prev.sum / size)
+  return datum.reduce((prev, current) => {
 
-    } else {
-      prev.sum += current - array[index - size]
-      prev.ma.push(prev.sum / size)
+    const ma = prev.mover.push(current)
+    if (ma) {
+      prev.sma.push(ma)
     }
 
     return prev
 
   }, {
-    sum: 0,
-    ma: []
+    mover,
+    sma: []
   })
-  .ma
+  .sma
 }
+
+
+// simple.Mover = SimpleMover

@@ -24,3 +24,24 @@ export default function exponential (...args) {
   })
   .ma
 }
+
+
+exponential.adder = (alpha) => {
+  let m = 0
+  let length = 0
+
+  return {
+    get value () {
+      return m
+    },
+
+    get length () {
+      return length
+    },
+
+    push (value) {
+      ++ length
+      return m = alpha * value + (1 - alpha) * m
+    }
+  }
+}

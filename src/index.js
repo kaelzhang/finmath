@@ -3,3 +3,4 @@ import exponential from './exponential'
 
 export {simple}
 export {exponential}
+// export {cumulative}

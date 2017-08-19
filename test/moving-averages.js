@@ -1,9 +1,22 @@
-const test = require('ava')
-const ma = require('..')
+import test from 'ava'
+import {
+  simple
+} from '../src'
+
+const ma = {
+  simple
+}
 
 const datum = [1, 2, 3, 4, 5]
 
-const cases = [
+const ADDER_CASES = [
+{
+  datum,
+  result: [1, 1.5, 2, 2.5, 3]
+}
+]
+
+const CASES = [
   {
     datum,
     result: [3]
@@ -36,6 +49,11 @@ const cases = [
   {
     datum,
     size: 7,
+    error: true
+  },
+  {
+    datum,
+    size: {},
     error: true
   }
 ]
@@ -70,16 +88,40 @@ function run ({
       e = false
 
     } catch (err) {
-      e = true
+      if (!error) {
+        throw err
+      }
+
+      return
     }
 
-    t.is(e, !!error)
-
-    if (!error) {
-      t.deepEqual(r, result)
-      t.deepEqual(datum_copy, datum)
-    }
+    t.deepEqual(r, result)
+    t.deepEqual(datum_copy, datum)
   })
 }
 
-cases.forEach(run)
+
+function adder_runner ({
+  datum,
+  type = 'simple',
+  result
+}) {
+
+  const d = `${type}.adder: ${JSON.stringify(datum)}`
+  test(d, t => {
+    const adder = ma[type].adder()
+    const calculated = datum.reduce((prev, current, i) => {
+      adder.push(current)
+      prev.push(adder.value)
+
+      t.is(adder.length, i + 1, 'wrong length')
+
+      return prev
+    }, [])
+
+    t.deepEqual(calculated, result, 'wrong result')
+  })
+}
+
+CASES.forEach(run)
+// ADDER_CASES.forEach(adder_runner)
