@@ -87,4 +87,8 @@ export class Adder {
   get length () {
     return this._length
   }
+
+  push (value) {
+    return this._ma = this._push(value)
+  }
 }

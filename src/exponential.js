@@ -1,47 +1,24 @@
-import {check} from './common'
+import {
+  // check,
+  Adder
+} from './common'
 
-// [ref](https://en.wikipedia.org/wiki/Moving_average#Exponential_moving_average)
-export default function exponential (...args) {
-  const [datum, size, alpha] = check(...args)
 
-  return datum.reduce((prev, current, index, array) => {
-    if (index === 0) {
-      prev.prev = current
+// https://en.wikipedia.org/wiki/Moving_average#Exponential_moving_average
 
-    } else {
-      prev.prev = alpha * current + (1 - alpha) * prev.prev
-    }
+class ExponentialAdder extends Adder {
+  constructor (alpha) {
+    super()
+    this._alpha = alpha
+  }
 
-    if (index > size - 2) {
-      prev.ma.push(prev.prev)
-    }
-
-    return prev
-
-  }, {
-    prev: null,
-    ma: []
-  })
-  .ma
+  _push (value) {
+    const alpha = this._alpha
+    return alpha * value + (1 - alpha) * this._ma
+  }
 }
 
 
-exponential.adder = (alpha) => {
-  let m = 0
-  let length = 0
-
-  return {
-    get value () {
-      return m
-    },
-
-    get length () {
-      return length
-    },
-
-    push (value) {
-      ++ length
-      return m = alpha * value + (1 - alpha) * m
-    }
-  }
+export default function exponential (alpha) {
+  return new ExponentialAdder(alpha)
 }

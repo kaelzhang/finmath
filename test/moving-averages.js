@@ -16,7 +16,7 @@ const ADDER_CASES = [
 }
 ]
 
-const CASES = [
+const SIMPLE_BATCH_CASES = [
   {
     datum,
     result: [3]
@@ -58,7 +58,7 @@ const CASES = [
   }
 ]
 
-function run ({
+function simple_batch_run ({
   datum,
   type = 'simple',
   size,
@@ -76,7 +76,7 @@ function run ({
 
   const d = `${type}: ${JSON.stringify(datum)}, size=${original_size}, has error: ${!!error}`
 
-  const m = ma[type]
+  const m = ma[type].batch
 
   test(d, t => {
 
@@ -109,7 +109,7 @@ function adder_runner ({
 
   const d = `${type}.adder: ${JSON.stringify(datum)}`
   test(d, t => {
-    const adder = ma[type].adder()
+    const adder = new ma[type]()
     const calculated = datum.reduce((prev, current, i) => {
       adder.push(current)
       prev.push(adder.value)
@@ -123,5 +123,6 @@ function adder_runner ({
   })
 }
 
-CASES.forEach(run)
-// ADDER_CASES.forEach(adder_runner)
+
+SIMPLE_BATCH_CASES.forEach(simple_batch_run)
+ADDER_CASES.forEach(adder_runner)

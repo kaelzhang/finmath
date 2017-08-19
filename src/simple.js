@@ -37,7 +37,7 @@ class SimpleMover extends Mover {
 
 
 // @param {Number=datum.length} setSize
-export default function simple (...args) {
+function batch (...args) {
   const [datum, size] = check(...args)
 
   const mover = new SimpleMover(size, {
@@ -60,5 +60,10 @@ export default function simple (...args) {
   .sma
 }
 
+export default function simple () {
+  return new SimpleAdder()
+}
 
-// simple.Mover = SimpleMover
+
+simple.Mover = SimpleMover
+simple.batch = batch

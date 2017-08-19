@@ -23,35 +23,33 @@ $ npm install moving-averages --save
 
 ```js
 import {
-  simple
+  simple,
+  exponential,
+  cumulative
 } from 'moving-averages'
 
-simple([1, 2, 3, 4, 5], 3)     // [2, 3, 4]
+// Simple Moving Average
+// `simple()` receives item into the collection, calculates the sma(simple moving average) of the whole collection
+const s = simple()
+s.push(1)  // 1
+s.push(2)  // 1.5
+s.push(3)  // 2
+s.push(4)  // 2.5
+s.value    // 2.5, the sma
+s.length   // 4,   the length of the collection
 
-// `size` default to the length of the list
-simple([1, 2, 3, 4, 5])        // [3]
+// Exponential Moving Average
+// for details of the parameter `alpha`, see:
+// https://en.wikipedia.org/wiki/Moving_average#Exponential_moving_average
+const e = exponential(alpha)
 
-
-// `simple.adder()` receives item into the collection, calculates the sma(simple moving average) of the whole collection
-const adder = simple.adder()
-adder.push(1)  // 1
-adder.push(2)  // 1.5
-adder.push(3)  // 2
-adder.push(4)  // 2.5
-adder.value    // 2.5, the sma
-adder.length   // 4,   the length of the collection
-
-
-// `simple.mover(3)` only calculates the sma of the latest 3 items
-const mover = simple.mover(3)
-mover.push(1)  // undefined, there is only one(less than 3) item in the collection, skip calculating
-mover.push(2)  // undefined
-mover.push(3)  // 2
-mover.push(4)  // 3, the sma of [2, 3, 4], 1 is abandoned
-mover.value    // 3
+// Cumulative Moving Average
+const c = cumulative()
 ```
 
-### simple(datum, size)
+## For Simple Moving Averages
+
+### new simple.Mover(datum, size)
 
 returns `Array.<Number>`
 
