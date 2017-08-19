@@ -92,10 +92,10 @@ period.value    // 3
 
 ### interface `simple.Cache`
 
-The purpose of `simple.Cache` is to reuse existing data and avoid unnecessary memory cost.
-
 - **get** `function(index)`
 - **set** `function(index, value)`
+
+The purpose of `simple.Cache` is to reuse existing data and avoid unnecessary memory cost.
 
 ```js
 const datum = [1, 2, 3, 4, 5]
