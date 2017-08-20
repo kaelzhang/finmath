@@ -74,7 +74,7 @@ export class Period {
 }
 
 
-export class Adder {
+export class Cumulative {
   constructor () {
     this._ma = 0
     this._length = 0

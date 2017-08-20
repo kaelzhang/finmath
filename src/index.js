@@ -1,7 +1,7 @@
 import simple from './simple'
 import exponential from './exponential'
-import cumulative from './cumulative'
+import weighted from './weighted'
 
 export {simple}
 export {exponential}
-export {cumulative}
+export {weighted}

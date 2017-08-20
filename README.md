@@ -11,74 +11,101 @@
 
 # moving-averages
 
-Utility methods for [Moving average](https://en.wikipedia.org/wiki/Moving_average), including simple moving average, cumulative moving average, exponential moving average.
+The complete collection of utility methods for [Moving average](https://en.wikipedia.org/wiki/Moving_average), including:
+
+- simple moving average (SMA)
+- cumulative moving average (CMA)
+- exponential moving average (EMA)
+- modified moving average (MMA), also known as running moving average (RMA), smoothed moving average (SMMA)
 
 ## Install
 
 ```sh
-$ npm install moving-averages --save
+$ npm install moving-averages
 ```
 
-## Usage
+## Simple Moving Average (SMA): `simple(datum)`
+
+- **datum** `Array.<Number>` the collection of data
+
+Returns `Number` the unweighted mean of the datum.
 
 ```js
 import {
   simple,
-  exponential,
-  cumulative
+  // exponential,
+  // cumulative,
+  // weighted
 } from 'moving-averages'
 
-// Simple Moving Average
-// `simple()` receives item into the collection,
-// calculates the sma(simple moving average) of the whole collection
-const s = simple()
-s.push(1)  // 1
-s.push(2)  // 1.5
-s.push(3)  // 2
-s.push(4)  // 2.5
-s.value    // 2.5, the sma
-s.length   // 4,   the length of the collection
-
-// Exponential Moving Average
-// for details of the parameter `alpha`, see:
-// https://en.wikipedia.org/wiki/Moving_average#Exponential_moving_average
-const e = exponential(alpha)
-e.push(1)
-e.value
-
-// Cumulative Moving Average
-const c = cumulative()
-c.push(1)
-c.value
+simple([1, 2, 3, 4, 5])  // 3
 ```
 
-### exponential(alpha)
+### Cumulative Moving Average (of SMA): `simple.cumulative()`
+
+Actually, CMA is **NOT** a new kind of moving averages.
+
+```js
+const cma = simple.cumulative()
+cma.push(1)
+// 1, receives a new data from the datum stream,
+// and returns the average of all of the data up util the current datum point
+
+cma.push(2)  // 1.5
+cma.push(3)  // 2
+cma.push(4)  // 2.5
+cma.value    // 2.5, the average util the current datum point
+cma.length   // 4  , the length of the data received
+```
+
+## Exponential Moving Average: `exponential(datum, alpha)`
+
+```js
+import {
+  exponential
+} from 'moving-averages'
+```
+
+### exponential.cumulative(alpha)
 
 - **alpha** `Number` represents the degree of weighting decrease, i.e. the constant smoothing factor between `0` and `1`. A higher `alpha` discounts older observations faster.
 
-
-## For Simple Moving Averages
-
-### simple.averages(datum, [size])
-
-- **datum** `Array.<Number>` the datum
-- **size** `Number=` the size of the data period. Defaults to the length of the `datum`
-
-Returns `Array.<Number>`
+Creates the cumulative collector of exponential moving average.
 
 ```js
-simple.averages([1, 2, 3, 4, 5], 3)     // [2, 3, 4]
-
-// `size` default to the length of the list
-simple.averages([1, 2, 3, 4, 5])        // [3]
+const ema = exponential.cumulative(alpha)
+ema.push(1)  // 1
+ema.push(3)  //
+ema.value
 ```
+
+## Weighted Moving Average: `weighted(datum)`
+
+```js
+import {
+  weighted
+} from 'moving-averages'
+
+weighted()
+```
+
+### ~~weighted.cumulative()~~
+
+
+## Modified Moving Average: `modified(datum)`
+
+
+### ~~modified.cumulative()~~
+
+
+## More for Simple Moving Averages
 
 ### new simple.Period(size, {cache})
 
 - **size** `Number` the size of the period
 - **cache** `simple.Cache=` for most cases, it is unnecessary.
 
-returns `Array.<Number>`
+Creates a `size`-periods calculator for simple moving average.
 
 ```js
 // `simple.mover(3)` only calculates the sma of the latest 3 items
@@ -88,6 +115,20 @@ period.push(2)  // undefined
 period.push(3)  // 2
 period.push(4)  // 3, the sma of [2, 3, 4], 1 is abandoned
 period.value    // 3
+```
+
+### simple.averages(datum, [size])
+
+- **datum** `Array.<Number>` the datum
+- **size** `Number=` the size of the data period. Defaults to the length of the `datum`
+
+Calculates multiple SMA periods simultaneously, and returns `Array.<Number>`
+
+```js
+simple.averages([1, 2, 3, 4, 5], 3)     // [2, 3, 4]
+
+// `size` default to the length of the list
+simple.averages([1, 2, 3, 4, 5])        // [3]
 ```
 
 ### interface `simple.Cache`

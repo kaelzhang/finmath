@@ -1,12 +1,12 @@
 import {
   // check,
-  Adder
+  Cumulative
 } from './common'
 
 
 // https://en.wikipedia.org/wiki/Moving_average#Exponential_moving_average
 
-class ExponentialAdder extends Adder {
+class ExponentialCumulative extends Cumulative {
   constructor (alpha) {
     super()
     this._alpha = alpha
@@ -20,5 +20,8 @@ class ExponentialAdder extends Adder {
 
 
 export default function exponential (alpha) {
-  return new ExponentialAdder(alpha)
+
 }
+
+
+exponential.Cumulative = ExponentialCumulative

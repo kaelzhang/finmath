@@ -2,12 +2,12 @@ import {
   check,
   Cache,
   Period,
-  Adder
+  Cumulative
 } from './common'
 
 // MAsimple = (N1 + ... + Nn) / n
 
-class SimpleAdder extends Adder {
+class SimpleCumulative extends Cumulative {
   constructor () {
     super()
     this._sum = 0
@@ -64,11 +64,21 @@ function averages (...args) {
   .sma
 }
 
-export default function simple () {
-  return new SimpleAdder()
+
+export default function simple (datum) {
+  const length = datum.length
+  let i = 0
+  let sum = 0
+
+  while (i < length) {
+    sum += datum[i ++]
+  }
+
+  return sum / length
 }
 
 
 simple.Period = SimplePeriod
+simple.Cumulative = SimpleCumulative
 simple.averages = averages
 simple.Cache = Cache
