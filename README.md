@@ -18,6 +18,18 @@ The complete collection of utility methods for [Moving average](https://en.wikip
 - exponential moving average (EMA)
 - modified moving average (MMA), also known as running moving average (RMA), smoothed moving average (SMMA)
 
+## Table of Contents
+
+- simple(datum)
+  - new simple.Cumulative()
+  - new simple.Period(size)
+  - simple.periods(datum, size)
+- exponential(datum)
+  - new exponential.Cumulative(alpha)
+- weighted(datum)
+  - new weighted.Period(size)
+  - new weighted.periods(datum, size)
+
 ## Install
 
 ```sh
@@ -32,21 +44,18 @@ Returns `Number` the unweighted mean of the datum.
 
 ```js
 import {
-  simple,
-  // exponential,
-  // cumulative,
-  // weighted
+  simple
 } from 'moving-averages'
 
 simple([1, 2, 3, 4, 5])  // 3
 ```
 
-### Cumulative Moving Average (of SMA): `simple.cumulative()`
+### Cumulative Moving Average (of SMA): `new simple.Cumulative()`
 
-Actually, CMA is **NOT** a new kind of moving averages.
+Actually, CMA is **NOT** a new kind of moving averages, but a collector of a certain moving average.
 
 ```js
-const cma = simple.cumulative()
+const cma = new simple.Cumulative()
 cma.push(1)
 // 1, receives a new data from the datum stream,
 // and returns the average of all of the data up util the current datum point
@@ -57,48 +66,6 @@ cma.push(4)  // 2.5
 cma.value    // 2.5, the average util the current datum point
 cma.length   // 4  , the length of the data received
 ```
-
-## Exponential Moving Average: `exponential(datum, alpha)`
-
-```js
-import {
-  exponential
-} from 'moving-averages'
-```
-
-### exponential.cumulative(alpha)
-
-- **alpha** `Number` represents the degree of weighting decrease, i.e. the constant smoothing factor between `0` and `1`. A higher `alpha` discounts older observations faster.
-
-Creates the cumulative collector of exponential moving average.
-
-```js
-const ema = exponential.cumulative(alpha)
-ema.push(1)  // 1
-ema.push(3)  //
-ema.value
-```
-
-## Weighted Moving Average: `weighted(datum)`
-
-```js
-import {
-  weighted
-} from 'moving-averages'
-
-weighted()
-```
-
-### ~~weighted.cumulative()~~
-
-
-## Modified Moving Average: `modified(datum)`
-
-
-### ~~modified.cumulative()~~
-
-
-## More for Simple Moving Averages
 
 ### new simple.Period(size, {cache})
 
@@ -117,7 +84,7 @@ period.push(4)  // 3, the sma of [2, 3, 4], 1 is abandoned
 period.value    // 3
 ```
 
-### simple.averages(datum, [size])
+### simple.periods(datum, [size])
 
 - **datum** `Array.<Number>` the datum
 - **size** `Number=` the size of the data period. Defaults to the length of the `datum`
@@ -125,11 +92,55 @@ period.value    // 3
 Calculates multiple SMA periods simultaneously, and returns `Array.<Number>`
 
 ```js
-simple.averages([1, 2, 3, 4, 5], 3)     // [2, 3, 4]
+simple.periods([1, 2, 3, 4, 5], 3)     // [2, 3, 4]
 
 // `size` default to the length of the list
-simple.averages([1, 2, 3, 4, 5])        // [3]
+simple.periods([1, 2, 3, 4, 5])        // [3]
 ```
+
+## Exponential Moving Average: `exponential(datum, alpha)`
+
+```js
+import {
+  exponential
+} from 'moving-averages'
+```
+
+### new exponential.Cumulative(alpha)
+
+- **alpha** `Number` represents the degree of weighting decrease, i.e. the constant smoothing factor between `0` and `1`. A higher `alpha` discounts older observations faster.
+
+Creates the cumulative collector of exponential moving average.
+
+```js
+const ema = new exponential.Cumulative(alpha)
+ema.push(1)  // 1
+ema.push(3)  //
+ema.value
+```
+
+## Weighted Moving Average: `weighted(datum)`
+
+```js
+import {
+  weighted
+} from 'moving-averages'
+
+weighted([1, 2, 3, 4, 5])
+```
+
+### new weighted.Period(size)
+
+### ~~new weighted.Cumulative()~~
+
+
+## Modified Moving Average: `modified(datum)`
+
+
+### ~~new modified.Cumulative()~~
+
+
+## More for Simple Moving Averages
 
 ### interface `simple.Cache`
 
