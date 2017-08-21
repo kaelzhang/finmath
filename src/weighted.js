@@ -56,4 +56,4 @@ export default function weighted (datum) {
 }
 
 
-weighted.Cumulative = WeightedCumulative
+weighted.Period = WeightedPeriod

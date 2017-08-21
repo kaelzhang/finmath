@@ -42,7 +42,7 @@ class SimpleCache extends Cache {
 
 
 // @param {Number=datum.length} setSize
-function averages (...args) {
+function periods (...args) {
   const [datum, size] = check(...args)
 
   const mover = new SimplePeriod(size, {
@@ -80,5 +80,5 @@ export default function simple (datum) {
 
 simple.Period = SimplePeriod
 simple.Cumulative = SimpleCumulative
-simple.averages = averages
+simple.periods = periods
 simple.Cache = Cache

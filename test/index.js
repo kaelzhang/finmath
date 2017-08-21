@@ -9,14 +9,14 @@ const ma = {
 
 const datum = [1, 2, 3, 4, 5]
 
-const ADDER_CASES = [
+const CUMULATIVE_CASES = [
 {
   datum,
   result: [1, 1.5, 2, 2.5, 3]
 }
 ]
 
-const SIMPLE_BATCH_CASES = [
+const SIMPLE_PERIODS_CASES = [
   {
     datum,
     result: [3]
@@ -58,7 +58,7 @@ const SIMPLE_BATCH_CASES = [
   }
 ]
 
-function simple_batch_run ({
+function simple_periods_runner ({
   datum,
   type = 'simple',
   size,
@@ -76,7 +76,7 @@ function simple_batch_run ({
 
   const d = `${type}: ${JSON.stringify(datum)}, size=${original_size}, has error: ${!!error}`
 
-  const m = ma[type].averages
+  const m = ma[type].periods
 
   test(d, t => {
 
@@ -101,7 +101,7 @@ function simple_batch_run ({
 }
 
 
-function adder_runner ({
+function cumulative_runner ({
   datum,
   type = 'simple',
   result
@@ -109,12 +109,12 @@ function adder_runner ({
 
   const d = `${type}.adder: ${JSON.stringify(datum)}`
   test(d, t => {
-    const adder = new ma[type]()
+    const cumulative = new ma[type].Cumulative()
     const calculated = datum.reduce((prev, current, i) => {
-      adder.push(current)
-      prev.push(adder.value)
+      cumulative.push(current)
+      prev.push(cumulative.value)
 
-      t.is(adder.length, i + 1, 'wrong length')
+      t.is(cumulative.length, i + 1, 'wrong length')
 
       return prev
     }, [])
@@ -124,5 +124,5 @@ function adder_runner ({
 }
 
 
-SIMPLE_BATCH_CASES.forEach(simple_batch_run)
-ADDER_CASES.forEach(adder_runner)
+SIMPLE_PERIODS_CASES.forEach(simple_periods_runner)
+CUMULATIVE_CASES.forEach(cumulative_runner)
