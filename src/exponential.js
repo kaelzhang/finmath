@@ -6,7 +6,7 @@ import {
 
 // https://en.wikipedia.org/wiki/Moving_average#Exponential_moving_average
 
-class ExponentialCumulative extends Cumulative {
+export class ExponentialCumulative extends Cumulative {
   constructor (alpha) {
     super()
     this._alpha = alpha

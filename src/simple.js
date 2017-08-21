@@ -36,17 +36,12 @@ class SimplePeriod extends Period {
 }
 
 
-class SimpleCache extends Cache {
-  set () {}
-}
-
-
 // @param {Number=datum.length} setSize
 function periods (...args) {
   const [datum, size] = check(...args)
 
   const mover = new SimplePeriod(size, {
-    cache: new SimpleCache(datum)
+    cache: new Cache.Readonly(datum)
   })
 
   return datum.reduce((prev, current) => {

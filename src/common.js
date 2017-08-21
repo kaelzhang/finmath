@@ -34,6 +34,11 @@ export class Cache {
 }
 
 
+Cache.Readonly = class extends Cache {
+  set () {}
+}
+
+
 export class Period {
   constructor (size, {
     cache
