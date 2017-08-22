@@ -58,7 +58,8 @@ Actually, CMA is **NOT** a new kind of moving averages, but a collector of a cer
 const cma = new simple.Cumulative()
 cma.push(1)
 // 1, receives a new data from the datum stream,
-// and returns the average of all of the data up util the current datum point
+// and returns the average of all of the data up
+// util the current datum point
 
 cma.push(2)  // 1.5
 cma.push(3)  // 2
@@ -77,7 +78,10 @@ Creates a `size`-periods calculator for simple moving average.
 ```js
 // `simple.mover(3)` only calculates the sma of the latest 3 items
 const period = new simple.Period(3)
-period.push(1)  // undefined, there is only one(less than 3) item in the collection, skip calculating
+period.push(1)  
+// undefined,
+// there is only one(less than 3) item in the collection, skip calculating
+
 period.push(2)  // undefined
 period.push(3)  // 2
 period.push(4)  // 3, the sma of [2, 3, 4], 1 is abandoned
@@ -142,7 +146,8 @@ Similar to [`new simple.Period(size)`](#simpleperiodsdatum-size), but handles we
 Returns `Array.<Number>`
 
 ```js
-weighted.periods([1, 2, 3, 4, 5], 2)  // [2.3333..., 3.3333..., 4.3333...]
+weighted.periods([1, 2, 3, 4, 5], 2)  
+// [2.3333..., 3.3333..., 4.3333...]
 ```
 
 ### ~~new weighted.Cumulative()~~
