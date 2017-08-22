@@ -1,6 +1,9 @@
 import {
   cumulative_runner,
-  periods_runner
+  periods_runner,
+  period_runner,
+  runner,
+  only
 } from './lib/runner'
 
 const datum = [1, 2, 3, 4, 5]
@@ -55,6 +58,19 @@ const SIMPLE_PERIODS_CASES = [
 ]
 
 
+const CASES = [
+{
+  datum: [1, 2, 3],
+  result: 2
+},
+{
+  datum: [1, 2, 3, 4],
+  result: 2.5
+}
+]
 
+
+CASES.forEach(runner)
 SIMPLE_PERIODS_CASES.forEach(periods_runner)
+SIMPLE_PERIODS_CASES.forEach(period_runner)
 CUMULATIVE_CASES.forEach(cumulative_runner)

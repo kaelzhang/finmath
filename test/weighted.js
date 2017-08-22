@@ -1,16 +1,17 @@
 import {
   periods_runner,
-  runner
+  period_runner,
+  runner,
+  only
 } from './lib/runner'
 
-const only = true
 
 function w (c) {
   c.type = 'weighted'
   return c
 }
 
-;[
+const CASE_PERIODS = [
 {
   datum: [1, 2, 3],
   size: 2,
@@ -21,8 +22,14 @@ function w (c) {
   result: [5 / 3]
 }
 ]
+
+CASE_PERIODS
 .map(w)
 .forEach(periods_runner)
+
+CASE_PERIODS
+.map(w)
+.forEach(period_runner)
 
 
 ;[

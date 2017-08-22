@@ -20,7 +20,7 @@ export function check (datum, size, alpha) {
 
 
 export class Cache {
-  constructor (cache) {
+  constructor (cache = {}) {
     this._cache = cache
   }
 
@@ -42,7 +42,7 @@ Cache.Readonly = class extends Cache {
 export class Period {
   constructor (size, {
     cache
-  }) {
+  } = {}) {
 
     this._size = size
     this._ma = undefined
@@ -63,6 +63,8 @@ export class Period {
     const index = this._length ++
     const length = index + 1
     const size = this._size
+
+    this._cache.set(index, value)
 
     return this._ma = length > size
 

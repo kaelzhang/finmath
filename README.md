@@ -130,7 +130,7 @@ import {
   weighted
 } from 'moving-averages'
 
-weighted([1, 2, 3, 4, 5])
+weighted([1, 2, 3, 4, 5])   // 3.6666...
 ```
 
 ### new weighted.Period(size)
@@ -142,11 +142,12 @@ Similar to [`new simple.Period(size)`](#simpleperiodsdatum-size), but handles we
 Returns `Array.<Number>`
 
 ```js
-weighted.periods([1, 2, 3, 4, 5], )
+weighted.periods([1, 2, 3, 4, 5], 2)  // [2.3333..., 3.3333..., 4.3333...]
 ```
 
 ### ~~new weighted.Cumulative()~~
 
+Unlike simple moving average, weighted moving average only makes sense for a fixed size. So it is silly to provide an API like `new weighted.Cumulative()`
 
 ## More for Simple Moving Averages
 

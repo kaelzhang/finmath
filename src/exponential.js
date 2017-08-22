@@ -16,16 +16,14 @@ export class ExponentialCumulative extends Cumulative {
   }
 
   _push (value) {
+    ++ this._length
+
     if (this._ma === 0) {
       return this._ma = value
     }
 
     const alpha = this._alpha
     return alpha * value + (1 - alpha) * this._ma
-  }
-
-  get weight () {
-    return 1 - Math.pow(1 - this._alpha, this._length + 1)
   }
 }
 
