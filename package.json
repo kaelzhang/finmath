@@ -21,10 +21,12 @@
     "ma",
     "simple moving average",
     "exponential moving average",
+    "weighted moving average",
     "cumulative moving average",
     "sma",
     "ema",
-    "wma"
+    "wma",
+    "cma"
   ],
   "ava": {
     "require": "babel-register",

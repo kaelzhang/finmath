@@ -15,7 +15,7 @@ export function check (datum, size, alpha) {
     throw new RangeError('size must be less than datum length.')
   }
 
-  return [datum, size, alpha]
+  return [datum, size]
 }
 
 
@@ -95,5 +95,29 @@ export class Cumulative {
 
   push (value) {
     return this._ma = this._push(value)
+  }
+}
+
+
+export function periodsFactory (periodFactory) {
+  // @param {Number=datum.length} setSize
+  return (...args) => {
+    const [datum, size] = check(...args)
+
+    const mover = periodFactory(size, datum)
+
+    return datum.reduce((prev, current) => {
+      const m = prev.mover.push(current)
+      if (m) {
+        prev.ma.push(m)
+      }
+
+      return prev
+
+    }, {
+      mover,
+      ma: []
+    })
+    .ma
   }
 }

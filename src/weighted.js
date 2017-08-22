@@ -1,5 +1,6 @@
 import {
-  Period
+  Period,
+  periodsFactory
 } from './common'
 
 
@@ -57,3 +58,9 @@ export default function weighted (datum) {
 
 
 weighted.Period = WeightedPeriod
+
+weighted.periods = periodsFactory((datum, size) => {
+  return new WeightedPeriod(size, {
+    cache: new Cache.Readonly(datum)
+  })
+})

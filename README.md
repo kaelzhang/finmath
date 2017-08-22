@@ -16,19 +16,18 @@ The complete collection of utility methods for [Moving average](https://en.wikip
 - simple moving average (SMA)
 - cumulative moving average (CMA)
 - exponential moving average (EMA)
-- modified moving average (MMA), also known as running moving average (RMA), smoothed moving average (SMMA)
 
 ## Table of Contents
 
-- simple(datum)
-  - new simple.Cumulative()
-  - new simple.Period(size)
-  - simple.periods(datum, size)
-- exponential(datum)
-  - new exponential.Cumulative(alpha)
-- weighted(datum)
-  - new weighted.Period(size)
-  - new weighted.periods(datum, size)
+- [simple(datum)](#simple-moving-average-sma-simpledatum)
+  - [new simple.Cumulative()](#cumulative-moving-average-of-sma-new-simplecumulative)
+  - [new simple.Period(size)](#new-simpleperiodsize-cache)
+  - [simple.periods(datum, size)](#simpleperiodsdatum-size)
+- [exponential(datum)](#exponential-moving-average-exponentialdatum-alpha)
+  - [new exponential.Cumulative(alpha)](#new-exponentialcumulativealpha)
+- [weighted(datum)](#weighted-moving-average-weighteddatum)
+  - [new weighted.Period(size)](#new-weightedperiodsize)
+  - [weighted.periods(datum, size)](#weightedperiodsdatum-size)
 
 ## Install
 
@@ -115,8 +114,12 @@ Creates the cumulative collector of exponential moving average.
 ```js
 const ema = new exponential.Cumulative(alpha)
 ema.push(1)  // 1
-ema.push(3)  //
+ema.push(3)
 ema.value
+
+// what's more than `simple.Cumulative`,
+// `ema.weight` represents the sum of the weights
+ema.weight   // 0.8
 ```
 
 ## Weighted Moving Average: `weighted(datum)`
@@ -130,6 +133,16 @@ weighted([1, 2, 3, 4, 5])
 ```
 
 ### new weighted.Period(size)
+
+Similar to [`new simple.Period(size)`](#simpleperiodsdatum-size), but handles weighted moving average.
+
+### weighted.periods(datum, size)
+
+Returns `Array.<Number>`
+
+```js
+weighted.periods([1, 2, 3, 4, 5], )
+```
 
 ### ~~new weighted.Cumulative()~~
 

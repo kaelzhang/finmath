@@ -2,7 +2,8 @@ import {
   check,
   Cache,
   Period,
-  Cumulative
+  Cumulative,
+  periodsFactory
 } from './common'
 
 // MAsimple = (N1 + ... + Nn) / n
@@ -36,30 +37,6 @@ class SimplePeriod extends Period {
 }
 
 
-// @param {Number=datum.length} setSize
-function periods (...args) {
-  const [datum, size] = check(...args)
-
-  const mover = new SimplePeriod(size, {
-    cache: new Cache.Readonly(datum)
-  })
-
-  return datum.reduce((prev, current) => {
-    const ma = prev.mover.push(current)
-    if (ma) {
-      prev.sma.push(ma)
-    }
-
-    return prev
-
-  }, {
-    mover,
-    sma: []
-  })
-  .sma
-}
-
-
 export default function simple (datum) {
   const length = datum.length
   let i = 0
@@ -75,5 +52,10 @@ export default function simple (datum) {
 
 simple.Period = SimplePeriod
 simple.Cumulative = SimpleCumulative
-simple.periods = periods
 simple.Cache = Cache
+
+simple.periods = periodsFactory((size, datum) => {
+  return new SimplePeriod(size, {
+    cache: new Cache.Readonly(datum)
+  })
+})
