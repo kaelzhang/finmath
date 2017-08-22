@@ -16,6 +16,7 @@ The complete collection of utility methods for [Moving average](https://en.wikip
 - simple moving average (SMA)
 - cumulative moving average (CMA)
 - exponential moving average (EMA)
+- weighted moving average (WMA)
 
 ## Table of Contents
 
@@ -145,12 +146,6 @@ weighted.periods([1, 2, 3, 4, 5], )
 ```
 
 ### ~~new weighted.Cumulative()~~
-
-
-## Modified Moving Average: `modified(datum)`
-
-
-### ~~new modified.Cumulative()~~
 
 
 ## More for Simple Moving Averages

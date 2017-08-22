@@ -1,7 +1,11 @@
 import {
   Period,
-  periodsFactory
+  periodsFactory,
+  Cache
 } from './common'
+
+
+const denominator = n => n * (n + 1) / 2
 
 
 class WeightedPeriod extends Period {
@@ -19,15 +23,20 @@ class WeightedPeriod extends Period {
   }
 
   _first (value, index) {
+    this._sum += value
+
     const datum = this._datum
     datum.push(value)
     this._numerator = numerator(datum)
     this._datum = null
+
     return this._numerator / this._denominator
   }
 
   _then (value, index) {
-    this._numerator += this._size * value - this._sum
+    const size = this._size
+
+    this._numerator += size * value - this._sum
     this._sum += value - this._cache.get(index - size)
     return this._numerator / this._denominator
   }
@@ -47,11 +56,6 @@ function numerator (datum) {
 }
 
 
-function denominator (size) {
-  return n * (n + 1) / 2
-}
-
-
 export default function weighted (datum) {
   return numerator(datum) / denominator(datum.length)
 }
@@ -59,7 +63,7 @@ export default function weighted (datum) {
 
 weighted.Period = WeightedPeriod
 
-weighted.periods = periodsFactory((datum, size) => {
+weighted.periods = periodsFactory((size, datum) => {
   return new WeightedPeriod(size, {
     cache: new Cache.Readonly(datum)
   })
