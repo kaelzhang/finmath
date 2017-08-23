@@ -118,14 +118,10 @@ import {
 Creates the cumulative collector of exponential moving average.
 
 ```js
-const ema = new exponential.Cumulative(alpha)
+const ema = new exponential.Cumulative(.5)
 ema.push(1)  // 1
-ema.push(3)
-ema.value
-
-// what's more than `simple.Cumulative`,
-// `ema.weight` represents the sum of the weights
-ema.weight   // 0.8
+ema.push(3)  // 2
+ema.value    // 2
 ```
 
 ## Weighted Moving Average: `weighted(datum)`
