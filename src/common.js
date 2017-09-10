@@ -1,4 +1,4 @@
-export function check (datum, size, alpha) {
+export function check (datum, size) {
   size = size === undefined
     ? datum.length
     : size
