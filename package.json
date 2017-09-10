@@ -1,12 +1,12 @@
 {
   "name": "moving-averages",
-  "version": "3.0.5",
+  "version": "3.0.6",
   "description": "The collections of simple, cumulative, and exponential moving averages.",
   "main": "lib/index.js",
   "module": "src/index.js",
   "scripts": {
-    "build": "rollup src/index.js --output.format cjs --output.file lib/index.js",
-    "test": "nyc ava --verbose --timeout=10s",
+    "build": "BABEL_ENV=rollup rollup -c",
+    "test": "BABEL_ENV=ava nyc ava --verbose --timeout=10s",
     "prepublish": "npm run build",
     "report-cov": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
   },
@@ -48,11 +48,9 @@
   "devDependencies": {
     "ava": "^0.16.0",
     "babel-cli": "^6.16.0",
-    "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-syntax-trailing-function-commas": "^6.13.0",
     "babel-plugin-transform-async-to-generator": "^6.22.0",
     "babel-plugin-transform-class-properties": "^6.16.0",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
     "babel-plugin-transform-exponentiation-operator": "^6.8.0",
     "babel-plugin-transform-inline-environment-variables": "^6.8.0",
     "babel-plugin-transform-object-rest-spread": "^6.16.0",
@@ -60,6 +58,8 @@
     "babel-register": "^6.24.1",
     "codecov": "^2.3.0",
     "nyc": "^11.1.0",
-    "rollup": "^0.49.3"
+    "rollup": "^0.49.3",
+    "rollup-plugin-babel": "^3.0.2",
+    "rollup-plugin-node-resolve": "^3.0.0"
   }
 }
