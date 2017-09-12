@@ -1,7 +1,13 @@
-import simple from './simple'
-import exponential from './exponential'
-import weighted from './weighted'
+import dma from './dma'
+import sma from './sma'
+import ema from './sma'
+import ma from './ma'
+import wma from './wma'
 
-export {simple}
-export {exponential}
-export {weighted}
+export {
+  dma,
+  sma,
+  ema,
+  ma,
+  wma
+}
