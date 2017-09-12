@@ -1,6 +1,6 @@
 {
   "name": "moving-averages",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "The FinTech utility collections of simple, cumulative, and exponential moving averages.",
   "main": "lib/index.js",
   "module": "src/index.js",

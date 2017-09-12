@@ -41,7 +41,7 @@ ma([1, 2, 3, 4, 5], 2)
 
 ## Simple Moving Average: `ma(data, size)`
 
-- **data** `Array.<Number|undefined>` the collection of data inside which empty values are allowed. This is useful if a stock is suspended.
+- **data** `Array.<Number|undefined>` the collection of data inside which empty values are allowed. Empty values are useful if a stock is suspended.
 - **size** `Number` the size of the period.
 
 Returns `Array.<Number|undefined>`
@@ -50,12 +50,13 @@ Returns `Array.<Number|undefined>`
 
 ```js
 // If the size is less than `1`
-ma([1, 2, 3], 0.5)      // [1, 2, 3]
+ma([1, 2, 3], 0.5)       // [1, 2, 3]
 
 // If the size is larger than data length
-ma([1, 2, 3], 5)        // [<3 empty items>]
+ma([1, 2, 3], 5)         // [<3 empty items>]
 
-ma([, 1, 2, 3, 4, 5])   // [<4 empty items>, 2.5, 3.5]
+ma([, 1,, 3, 4, 5], 2)   
+// [<2 empty items>, 0.5, 1.5, 3.5, 4.5]
 ```
 
 And all of the other moving average methods have similar mechanism.
@@ -76,7 +77,8 @@ dma([1, 2, 3], 2)    // [<3 empty items>]
 
 dma([1, 2, 3], 0.5)  // [1, 1.5, 2.25]
 
-dma([1,2,3,4,5], [0.1, 0.2, 0.1])  // [1, 1.2, 1.38]
+dma([1, 2, 3, 4, 5], [0.1, 0.2, 0.1])  
+// [1, 1.2, 1.38]
 ```
 
 ## Exponential Moving Average: `ema(data, size)`
