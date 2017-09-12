@@ -6,20 +6,20 @@ import {
 } from './common'
 
 
-// @param {Number|Array.<Number>} weight
-export default (data, weight, noHead) => {
+// @param {Number|Array.<Number>} alpha
+export default (data, alpha, noHead) => {
 
   const length = data.length
 
-  if (weight > 1) {
+  if (alpha > 1) {
     return Array(length)
   }
 
-  if (weight === 1) {
+  if (alpha === 1) {
     return data.slice()
   }
 
-  const noArrayWeight = !isArray(weight)
+  const noArrayWeight = !isArray(alpha)
   const ret = []
 
   let datum
@@ -61,24 +61,24 @@ export default (data, weight, noHead) => {
     for (; i < length; i ++) {
       datum = data[i]
 
-      isNumber(datum) && isNumber(weight[i])
+      isNumber(datum) && isNumber(alpha[i])
         ? s =
-          ret[i] = weight[i] * datum + (1 - weight[i]) * s
+          ret[i] = alpha[i] * datum + (1 - alpha[i]) * s
         : ret[i] = ret[i - 1]
     }
 
     return ret
   }
 
-  const o = 1 - weight
+  const o = 1 - alpha
 
-  // Fixed weight
+  // Fixed alpha
   for (; i < length; i++) {
     datum = data[i]
 
     isNumber(datum)
       ? s =
-        ret[i] = weight * datum + o * s
+        ret[i] = alpha * datum + o * s
       : ret[i] = ret[i - 1]
   }
 
