@@ -42,7 +42,7 @@ ma([1, 2, 3, 4, 5], 2)
 ## Simple Moving Average: `ma(data, size)`
 
 - **data** `Array.<Number|undefined>` the collection of data inside which empty values are allowed. Empty values are useful if a stock is suspended.
-- **size** `Number` the size of the period.
+- **size** `Number` the size of the periods.
 
 Returns `Array.<Number|undefined>`
 
@@ -86,7 +86,7 @@ dma([1, 2, 3, 4, 5], [0.1, 0.2, 0.1])
 Calulates the most frequent used exponential average which covers about 86% of the total weight (when `alpha = 2 / (N + 1)`).
 
 - **data**
-- **size** `Number` the size of the period.
+- **size** `Number` the size of the periods.
 
 Returns `Array.<Number|undefined>`
 
@@ -110,5 +110,6 @@ Returns `Array.<Number|undefined>`
 
 - [bollinger-bands](https://www.npmjs.com/package/bollinger-bands): Fintach math utility to calculate bollinger bands.
 - [s-deviation](https://www.npmjs.com/package/s-deviation): Math utility to calculate standard deviations.
+- [moving-averages](https://www.npmjs.com/package/moving-averages): The complete collection of utility methods for [Moving average](https://en.wikipedia.org/wiki/Moving_average).
 
 MIT
