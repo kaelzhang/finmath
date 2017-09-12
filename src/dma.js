@@ -1,5 +1,4 @@
-// Displaced moving average
-// https://tradingsim.com/blog/displaced-moving-average/
+// Abstract exponential moving average
 
 import {
   isNumber,
@@ -7,7 +6,7 @@ import {
 } from './common'
 
 
-export default (data, alpha, lead) => {
+export default (data, alpha, noHead) => {
 
   const ret = []
 
@@ -37,13 +36,13 @@ export default (data, alpha, lead) => {
       )
     ) {
 
-      ret[i] = lead
+      ret[i] = noHead
         ? 0
         : datum
 
       s = datum
       i ++
-      
+
       break
     }
   }

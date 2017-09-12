@@ -1,11 +1,13 @@
 import test from 'ava'
 
 import {
-  dma
+  dma,
+  ma
 } from '../../src'
 
-const ma = {
-  dma
+const methods = {
+  dma,
+  ma
 }
 
 
@@ -33,9 +35,15 @@ export function runner ({
   const d = `${type}(${d_args})`
 
   get_test(only)(d, t => {
-    const r = ma[type](...args)
-    t.deepEqual(r.map(to_fixed_10),
-      result.map(to_fixed_10))
+    const r = methods[type](...args)
+
+    if (Array.isArray(result)) {
+      t.deepEqual(r.map(to_fixed_10),
+        result.map(to_fixed_10))
+      return
+    }
+
+    t.is(to_fixed_10(r), to_fixed_10(result))
   })
 }
 
