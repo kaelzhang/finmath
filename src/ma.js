@@ -25,6 +25,7 @@ export default (data, size) => {
   let sum = 0
   let i = 0
   let counter = 0
+  let datum
 
   for (; i < length && counter < prepare; i ++) {
     datum = data[i]

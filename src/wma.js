@@ -21,8 +21,9 @@ export default (data, size) => {
   const prepare = size - 1
   let sum = 0
   let numerator = 0
-  let counter = 0
-  let datum
+  let datum = 0
+  let i = 0
+  let real = -1
 
 
   for (; i < prepare; i ++) {
@@ -34,7 +35,7 @@ export default (data, size) => {
     }
   }
 
-  for (; i < length; i ++, a ++) {
+  for (; i < length; i ++, real ++) {
     datum = data[i]
 
     if (isNumber(datum)) {
@@ -42,10 +43,12 @@ export default (data, size) => {
       numerator += size * datum
     }
 
-    if (a > 0 && isNumber(data[a]) && (sum -= data[a])) {
-      ret[i] = numerator / denominator
-      numerator -= sum
+    if (real >= 0 && isNumber(data[real])) {
+      sum -= data[real]
     }
+
+    ret[i] = numerator / denominator
+    numerator -= sum
   }
 
   return ret

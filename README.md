@@ -12,11 +12,12 @@
 
 # moving-averages
 
-The complete collection of utility methods for [Moving average](https://en.wikipedia.org/wiki/Moving_average), including:
+The complete collection of [FinTech](https://en.wikipedia.org/wiki/Financial_technology) utility methods for [Moving average](https://en.wikipedia.org/wiki/Moving_average), including:
 
-- simple moving average (SMA)
-- cumulative moving average (CMA)
+- simple moving average (MA)
+- dynamic weighted moving average (DMA)
 - exponential moving average (EMA)
+- smoothed moving average (SMA)
 - weighted moving average (WMA)
 
 ## install

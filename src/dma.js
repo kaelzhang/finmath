@@ -1,4 +1,4 @@
-// Abstract exponential moving average
+// Dynamic Weighted Moving Average
 
 import {
   isNumber,
@@ -6,34 +6,38 @@ import {
 } from './common'
 
 
-export default (data, alpha, noHead) => {
+// @param {Number|Array.<Number>} weight
+export default (data, weight, noHead) => {
 
   const length = data.length
 
-  if (alpha > 1) {
+  if (weight > 1) {
     return Array(length)
   }
 
-  if (alpha === 1) {
+  if (weight === 1) {
     return data.slice()
   }
 
-  const noArrayAlpha = !isArray(alpha)
+  const noArrayWeight = !isArray(weight)
   const ret = []
-  
+
   let datum
+
+  // period `i`
   let i = 0
 
-  // `s` is the value of the EMA at any time period t
+  // `s` is the value of the DWMA at any time period `i`
   let s = 0
 
+  // Handles head
   for (; i < length; i ++) {
     datum = data[i]
 
     if (
       isNumber(datum)
       && (
-        noArrayAlpha
+        noArrayWeight
         || isNumber(datum)
       )
     ) {
@@ -49,27 +53,32 @@ export default (data, alpha, noHead) => {
     }
   }
 
-  if (!noArrayAlpha) {
+  // Dynamic weights: an array of weights
+  // Ref:
+  // https://en.wikipedia.org/wiki/Moving_average#Exponential_moving_average
+  // with a dynamic alpha
+  if (!noArrayWeight) {
     for (; i < length; i ++) {
       datum = data[i]
 
-      isNumber(datum) && isNumber(alpha[i])
+      isNumber(datum) && isNumber(weight[i])
         ? s =
-          ret[i] = alpha[i] * datum + (1 - alpha[i]) * s
+          ret[i] = weight[i] * datum + (1 - weight[i]) * s
         : ret[i] = ret[i - 1]
     }
 
     return ret
   }
 
-  const o = 1 - alpha
+  const o = 1 - weight
 
+  // Fixed weight
   for (; i < length; i++) {
     datum = data[i]
 
     isNumber(datum)
       ? s =
-        ret[i] = alpha * datum + o * s
+        ret[i] = weight * datum + o * s
       : ret[i] = ret[i - 1]
   }
 
