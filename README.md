@@ -106,4 +106,9 @@ Calculates convolution of the datum points with a fixed weighting function.
 
 Returns `Array.<Number|undefined>`
 
+## Related FinTech Modules
+
+- [bollinger-bands](https://www.npmjs.com/package/bollinger-bands): Fintach math utility to calculate bollinger bands.
+- [s-deviation](https://www.npmjs.com/package/s-deviation): Math utility to calculate standard deviations.
+
 MIT
