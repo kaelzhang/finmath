@@ -14,11 +14,11 @@
 
 The complete collection of [FinTech](https://en.wikipedia.org/wiki/Financial_technology) utility methods for [Moving average](https://en.wikipedia.org/wiki/Moving_average), including:
 
-- simple moving average (MA)
-- dynamic weighted moving average (DMA)
-- exponential moving average (EMA)
-- smoothed moving average (SMA)
-- weighted moving average (WMA)
+- [simple moving average (MA)](#simple-moving-average-madata-size)
+- [dynamic weighted moving average (DMA)](#dynamic-weighted-moving-average-dmadata-alpha-nohead)
+- [exponential moving average (EMA)](#exponential-moving-average-emadata-size)
+- [smoothed moving average (SMA)](#smoothed-moving-average-smadata-size-times)
+- [weighted moving average (WMA)](#weighted-moving-average-wmadata-size)
 
 And `moving-averages` will also handle empty values.
 
@@ -32,11 +32,7 @@ $ npm i moving-averages
 
 ```js
 import {
-  ma,
-  dma,
-  ema,
-  sma,
-  wma
+  ma, dma, ema, sma, wma
 } from 'moving-averages'
 
 ma([1, 2, 3, 4, 5], 2)    
