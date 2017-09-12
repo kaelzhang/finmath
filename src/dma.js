@@ -8,11 +8,7 @@ import {
 
 export default (data, alpha, noHead) => {
 
-  const ret = []
-
   const length = data.length
-  let i = 0
-  let s = 0
 
   if (alpha > 1) {
     return Array(length)
@@ -23,7 +19,13 @@ export default (data, alpha, noHead) => {
   }
 
   const noArrayAlpha = !isArray(alpha)
+  const ret = []
+  
   let datum
+  let i = 0
+
+  // `s` is the value of the EMA at any time period t
+  let s = 0
 
   for (; i < length; i ++) {
     datum = data[i]

@@ -2,4 +2,4 @@
 
 import dma from './dma'
 
-export default (data, size, n) => dma(data, n / m, 1)
+export default (data, size, times) => dma(data, times / size, 1)
