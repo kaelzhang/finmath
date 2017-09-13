@@ -19,6 +19,7 @@ benchmark
 *.sass-cache
 package-lock.json
 .nyc_output/
+*.tgz
 
 # OS or Editor folders
 .DS_Store
