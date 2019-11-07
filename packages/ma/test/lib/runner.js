@@ -30,7 +30,7 @@ export const type = type => {
   }
 }
 
-export function runner (c) {
+function _runner (c, prefix) {
   const type = c.type
   const [
     args,
@@ -39,7 +39,7 @@ export function runner (c) {
   ] = c
 
   const d_args = JSON.stringify(args)
-  const d = `${type}(${d_args})`
+  const d = `${prefix}${type}(${d_args})`
 
   get_test(only)(d, t => {
     const r = methods[type](...args)
@@ -52,4 +52,8 @@ export function runner (c) {
 
     t.is(to_fixed_10(r), to_fixed_10(result))
   })
+}
+
+export const runner = (prefix = '') => {
+  return c => _runner(c, prefix)
 }

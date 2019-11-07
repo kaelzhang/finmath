@@ -4,12 +4,16 @@ import {
   isNumber,
   isArray
 } from './common'
-
+import {Data, Datum} from './types'
 
 // @param {Number|Array.<Number>} alpha
-export default (data, alpha, noHead) => {
+export default function (
+  data: Data,
+  alpha: Data | number,
+  noHead: boolean = false
+): Data {
 
-  const length = data.length
+  const {length} = data
 
   if (alpha > 1) {
     return Array(length)
@@ -19,10 +23,10 @@ export default (data, alpha, noHead) => {
     return data.slice()
   }
 
-  const noArrayWeight = !isArray(alpha)
+  const notArrayWeight = !isArray(alpha)
   const ret = []
 
-  let datum
+  let datum: Datum
 
   // period `i`
   let i = 0
@@ -37,7 +41,7 @@ export default (data, alpha, noHead) => {
     if (
       isNumber(datum)
       && (
-        noArrayWeight
+        notArrayWeight
         || isNumber(datum)
       )
     ) {
@@ -57,7 +61,7 @@ export default (data, alpha, noHead) => {
   // Ref:
   // https://en.wikipedia.org/wiki/Moving_average#Exponential_moving_average
   // with a dynamic alpha
-  if (!noArrayWeight) {
+  if (!notArrayWeight) {
     for (; i < length; i ++) {
       datum = data[i]
 
@@ -70,7 +74,8 @@ export default (data, alpha, noHead) => {
     return ret
   }
 
-  const o = 1 - alpha
+  const a = alpha as number
+  const o = 1 - a
 
   // Fixed alpha
   for (; i < length; i++) {
@@ -78,7 +83,7 @@ export default (data, alpha, noHead) => {
 
     isNumber(datum)
       ? s =
-        ret[i] = alpha * datum + o * s
+        ret[i] = a * datum + o * s
       : ret[i] = ret[i - 1]
   }
 

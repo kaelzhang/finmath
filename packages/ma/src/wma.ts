@@ -3,9 +3,9 @@
 import {
   isNumber
 } from './common'
+import {Data, Datum} from './types'
 
-
-export default (data, size) => {
+export default function (data: Data, size: number): Data {
   const length = data.length
 
   if (size <= 1) {
@@ -21,7 +21,7 @@ export default (data, size) => {
   const prepare = size - 1
   let sum = 0
   let numerator = 0
-  let datum = 0
+  let datum: Datum = 0
   let i = 0
   let real = -1
 

@@ -1,0 +1,71 @@
+{
+  "name": "moving-averages",
+  "version": "4.0.5",
+  "description": "The FinTech utility collections of simple, cumulative, and exponential moving averages.",
+  "main": "lib/index.js",
+  "module": "src/index.js",
+  "files": [
+    "lib/",
+    "src/"
+  ],
+  "scripts": {
+    "build": "npm run build:es",
+    "build:es": "tsc -m esNext --outDir dist/es",
+    "test": "BABEL_ENV=ava nyc ava --verbose --timeout=10s",
+    "prepublish": "npm run build",
+    "report-cov": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kaelzhang/moving-averages.git"
+  },
+  "keywords": [
+    "moving average",
+    "moving-average",
+    "moving-averages",
+    "simple moving average",
+    "exponential moving average",
+    "weighted moving average",
+    "smoothed moving average",
+    "dynamic weighted moving average",
+    "sma",
+    "ema",
+    "wma",
+    "sma",
+    "dma"
+  ],
+  "ava": {
+    "require": "babel-register",
+    "babel": {
+      "babelrc": true
+    },
+    "files": [
+      "test/*.js"
+    ]
+  },
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "author": "kaelzhang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kaelzhang/moving-averages/issues"
+  },
+  "devDependencies": {
+    "ava": "^0.16.0",
+    "babel-cli": "^6.16.0",
+    "babel-plugin-syntax-trailing-function-commas": "^6.13.0",
+    "babel-plugin-transform-async-to-generator": "^6.22.0",
+    "babel-plugin-transform-class-properties": "^6.16.0",
+    "babel-plugin-transform-exponentiation-operator": "^6.8.0",
+    "babel-plugin-transform-inline-environment-variables": "^6.8.0",
+    "babel-plugin-transform-object-rest-spread": "^6.16.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-register": "^6.24.1",
+    "codecov": "^2.3.0",
+    "nyc": "^11.1.0",
+    "rollup": "^0.49.3",
+    "rollup-plugin-babel": "^3.0.2",
+    "rollup-plugin-node-resolve": "^3.0.0"
+  }
+}
