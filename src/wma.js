@@ -6,7 +6,7 @@ import {
 
 
 export default (data, size) => {
-  const length = data.length
+  const {length} = data
 
   if (size <= 1) {
     return data.slice()
@@ -23,7 +23,7 @@ export default (data, size) => {
   let numerator = 0
   let datum = 0
   let i = 0
-  let real = -1
+  let real = - 1
 
 
   for (; i < prepare; i ++) {

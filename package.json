@@ -8,11 +8,19 @@
     "lib/",
     "src/"
   ],
+  "sideEffects": false,
   "scripts": {
-    "build": "BABEL_ENV=rollup rollup -c",
-    "test": "BABEL_ENV=ava nyc ava --verbose --timeout=10s",
-    "prepublish": "npm run build",
-    "report-cov": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
+    "build": "babel src --out-dir lib",
+    "test:no-cov": "ava --timeout=10s --verbose",
+    "test": "NODE_DEBUG=dark-hole nyc ava --timeout=10s --verbose",
+    "test:dev": "NODE_DEBUG=dark-hole nyc ava --timeout=10s --verbose && npm run report:dev",
+    "lint": "eslint .",
+    "fix": "eslint . --fix",
+    "posttest": "npm run report",
+    "report": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
+    "report:dev": "nyc report --reporter=html && npm run report:open",
+    "report:open": "open coverage/index.html",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -34,8 +42,10 @@
     "dma"
   ],
   "ava": {
-    "require": "babel-register",
-    "babel": {
+    "require": [
+      "@babel/register"
+    ],
+    "testOptions": {
       "babelrc": true
     },
     "files": [
@@ -51,20 +61,15 @@
     "url": "https://github.com/kaelzhang/moving-averages/issues"
   },
   "devDependencies": {
-    "ava": "^0.16.0",
-    "babel-cli": "^6.16.0",
-    "babel-plugin-syntax-trailing-function-commas": "^6.13.0",
-    "babel-plugin-transform-async-to-generator": "^6.22.0",
-    "babel-plugin-transform-class-properties": "^6.16.0",
-    "babel-plugin-transform-exponentiation-operator": "^6.8.0",
-    "babel-plugin-transform-inline-environment-variables": "^6.8.0",
-    "babel-plugin-transform-object-rest-spread": "^6.16.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-register": "^6.24.1",
-    "codecov": "^2.3.0",
-    "nyc": "^11.1.0",
-    "rollup": "^0.49.3",
-    "rollup-plugin-babel": "^3.0.2",
-    "rollup-plugin-node-resolve": "^3.0.0"
+    "@babel/cli": "^7.7.0",
+    "@babel/core": "^7.7.2",
+    "@babel/preset-env": "^7.7.1",
+    "@babel/register": "^7.7.0",
+    "@ostai/eslint-config": "^3.5.0",
+    "ava": "^2.4.0",
+    "codecov": "^3.6.1",
+    "eslint": "^6.4.0",
+    "eslint-plugin-import": "^2.18.2",
+    "nyc": "^14.1.1"
   }
 }

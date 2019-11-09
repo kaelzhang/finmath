@@ -6,7 +6,7 @@ import {
 
 
 export default (data, size) => {
-  const length = data.length
+  const {length} = data
 
   if (!size) {
     return data.reduce((a, b) => a + b) / length

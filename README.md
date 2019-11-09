@@ -35,16 +35,30 @@ import {
   ma, dma, ema, sma, wma
 } from 'moving-averages'
 
-ma([1, 2, 3, 4, 5], 2)    
+ma([1, 2, 3, 4, 5], 2)
 // [<1 empty item>, 1.5, 2.5, 3.5, 4.5]
 ```
 
 ## Simple Moving Average: `ma(data, size)`
 
-- **data** `Array.<Number|undefined>` the collection of data inside which empty values are allowed. Empty values are useful if a stock is suspended.
-- **size** `Number` the size of the periods.
+```ts
+type Data = Array<number|Empty>
+```
 
-Returns `Array.<Number|undefined>`
+- **data** `Data` the collection of data inside which empty values are allowed. Empty values are useful if a stock is suspended.
+- **size** `number` the size of the periods.
+
+Returns `Data`
+
+Type `Array<number|Empty>` represents an array of numbers or empty items. And every method of `finmath` does **NOT** accepts items that are not numbers.
+
+```js
+[1,, 2, 3] // OK ✅
+
+[1, undefined, 2, 3] // NOT OK ❌
+
+[1, null, 2, 3] // NOT OK ❌
+```
 
 #### Special Cases
 
@@ -55,7 +69,7 @@ ma([1, 2, 3], 0.5)       // [1, 2, 3]
 // If the size is larger than data length
 ma([1, 2, 3], 5)         // [<3 empty items>]
 
-ma([, 1,, 3, 4, 5], 2)   
+ma([, 1,, 3, 4, 5], 2)
 // [<2 empty items>, 0.5, 1.5, 3.5, 4.5]
 ```
 
@@ -77,7 +91,7 @@ dma([1, 2, 3], 2)    // [<3 empty items>]
 
 dma([1, 2, 3], 0.5)  // [1, 1.5, 2.25]
 
-dma([1, 2, 3, 4, 5], [0.1, 0.2, 0.1])  
+dma([1, 2, 3, 4, 5], [0.1, 0.2, 0.1])
 // [1, 1.2, 1.38]
 ```
 

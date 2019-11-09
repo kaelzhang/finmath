@@ -8,8 +8,7 @@ import {
 
 // @param {Number|Array.<Number>} alpha
 export default (data, alpha, noHead) => {
-
-  const length = data.length
+  const {length} = data
 
   if (alpha > 1) {
     return Array(length)
@@ -19,7 +18,7 @@ export default (data, alpha, noHead) => {
     return data.slice()
   }
 
-  const noArrayWeight = !isArray(alpha)
+  const isArrayWeight = isArray(alpha)
   const ret = []
 
   let datum
@@ -37,11 +36,10 @@ export default (data, alpha, noHead) => {
     if (
       isNumber(datum)
       && (
-        noArrayWeight
+        !isArrayWeight
         || isNumber(datum)
       )
     ) {
-
       ret[i] = noHead
         ? 0
         : datum
@@ -57,13 +55,12 @@ export default (data, alpha, noHead) => {
   // Ref:
   // https://en.wikipedia.org/wiki/Moving_average#Exponential_moving_average
   // with a dynamic alpha
-  if (!noArrayWeight) {
+  if (isArrayWeight) {
     for (; i < length; i ++) {
       datum = data[i]
 
       isNumber(datum) && isNumber(alpha[i])
-        ? s =
-          ret[i] = alpha[i] * datum + (1 - alpha[i]) * s
+        ? s = ret[i] = alpha[i] * datum + (1 - alpha[i]) * s
         : ret[i] = ret[i - 1]
     }
 
@@ -73,12 +70,11 @@ export default (data, alpha, noHead) => {
   const o = 1 - alpha
 
   // Fixed alpha
-  for (; i < length; i++) {
+  for (; i < length; i ++) {
     datum = data[i]
 
     isNumber(datum)
-      ? s =
-        ret[i] = alpha * datum + o * s
+      ? s = ret[i] = alpha * datum + o * s
       : ret[i] = ret[i - 1]
   }
 

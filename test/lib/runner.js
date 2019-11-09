@@ -21,28 +21,26 @@ export const only = true
 
 const to_fixed_10 = n => n.toFixed(10)
 
-export const get_test = only => only ? test.only : test
+export const get_test = o => o ? test.only : test
 
-export const type = type => {
-  return obj => {
-    obj.type = type
-    return obj
-  }
+export const type = t => obj => {
+  obj.type = t
+  return obj
 }
 
 export function runner (c) {
-  const type = c.type
+  const {type: tt} = c
   const [
     args,
     result,
-    only
+    o
   ] = c
 
   const d_args = JSON.stringify(args)
-  const d = `${type}(${d_args})`
+  const d = `${tt}(${d_args})`
 
-  get_test(only)(d, t => {
-    const r = methods[type](...args)
+  get_test(o)(d, t => {
+    const r = methods[tt](...args)
 
     if (Array.isArray(result)) {
       t.deepEqual(r.map(to_fixed_10),
