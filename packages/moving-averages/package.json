@@ -9,8 +9,7 @@
     "src/"
   ],
   "scripts": {
-    "build": "npm run build:es",
-    "build:es": "tsc -m esNext --outDir dist/es",
+    "build": "BABEL_ENV=rollup rollup -c",
     "test": "BABEL_ENV=ava nyc ava --verbose --timeout=10s",
     "prepublish": "npm run build",
     "report-cov": "nyc report --reporter=text-lcov > coverage.lcov && codecov"

@@ -41,10 +41,18 @@ ma([1, 2, 3, 4, 5], 2)
 
 ## Simple Moving Average: `ma(data, size)`
 
-- **data** `Array.<Number|undefined>` the collection of data inside which empty values are allowed. Empty values are useful if a stock is suspended.
-- **size** `Number` the size of the periods.
+- **data** `Array<number|Empty>` the collection of numbers inside which empty values are allowed. Empty values are useful if a stock is suspended.
+- **size** `number` the size of the periods.
 
-Returns `Array.<Number|undefined>`
+Returns `Array<number|Empty>`
+
+Type `Array<number|Empty>` is an array of numbers or empty items. And every method of `moving-averages` does **NOT** allow items which are not numbers
+
+```js
+[1,, 2, 3]  // OK ✅
+
+[1, undefined, 2, 3] // NOT OK ❌
+```
 
 #### Special Cases
 
@@ -63,7 +71,7 @@ And all of the other moving average methods have similar mechanism.
 
 ## Dynamic Weighted Moving Average: `dma(data, alpha, noHead)`
 
-- **data**
+- **data** `Array<number|Empty>`
 - **alpha** `Number|Array.<Number>` the coefficient or list of coefficients `alpha` represents the degree of weighting decrease for each datum.
   - If `alpha` is a number, then the weighting decrease for each datum is the same.
   - If `alpha` larger than `1` is invalid, then the return value will be an empty array of the same length of the original data.

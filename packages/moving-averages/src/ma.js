@@ -3,13 +3,15 @@
 import {
   isNumber
 } from './common'
-import {Data, Datum} from './types'
 
-export default function (data: Data, size?: number): Data {
-  const {length} = data
+
+export default (data, size) => {
+  const length = data.length
 
   if (!size) {
-    return [data.reduce((a, b) => a + b) / length]
+    const arr = []
+    arr[length - 1] = data.reduce((a, b) => a + b) / length
+    return arr
   }
 
   if (size <= 1) {
@@ -25,7 +27,7 @@ export default function (data: Data, size?: number): Data {
   let sum = 0
   let i = 0
   let counter = 0
-  let datum: Datum
+  let datum
 
   for (; i < length && counter < prepare; i ++) {
     datum = data[i]

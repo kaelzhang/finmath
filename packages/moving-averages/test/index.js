@@ -143,22 +143,6 @@ CASES.ema = [
   ]
 ]
 
-function setNaN (a) {
-  let i = 0
-  const length = a.length
-  for (; i < length; i ++) {
-    if (a[i] === undefined) {
-      a[i] = NaN
-    }
-  }
-  return a
-}
-
 Object.keys(CASES).forEach(t => {
-  CASES[t].map(type(t)).forEach(runner())
-
-  // Test about
-  const C = CASES[t].slice()
-  C[0] = setNaN(C[0].slice())
-  C.map(type(t)).forEach(runner('test NaN: '))
+  CASES[t].map(type(t)).forEach(runner)
 })
