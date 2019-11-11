@@ -27,6 +27,9 @@
     "url": "git://github.com/kaelzhang/finmath.git"
   },
   "keywords": [
+    "finmath",
+    "fintech",
+    "math",
     "moving average",
     "moving-average",
     "moving-averages",
@@ -39,7 +42,19 @@
     "ema",
     "wma",
     "sma",
-    "dma"
+    "dma",
+    "macd",
+    "convergence",
+    "divergence",
+    "hhv",
+    "llv",
+    "highest",
+    "lowest",
+    "boll",
+    "bollinger-bands",
+    "array",
+    "sub",
+    "add"
   ],
   "ava": {
     "require": [

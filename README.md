@@ -15,6 +15,7 @@
 The complete collection of mathematical utility methods for [FinTech](https://en.wikipedia.org/wiki/Financial_technology) , including:
 
 - [Moving averages](https://en.wikipedia.org/wiki/Moving_average)
+- [MACD](https://en.wikipedia.org/wiki/MACD)
 - [Bollinger bands](https://en.wikipedia.org/wiki/Bollinger_Bands)
 - [Standard deviations](https://en.wikipedia.org/wiki/Standard_deviation)
 - Highest high values / Lowest low values
@@ -28,6 +29,7 @@ And all finmath methods also handle empty values.
 - [Exponential Moving Average (EMA)](#exponential-moving-average-emadata-size)
 - [Smoothed Moving Average (SMA)](#smoothed-moving-average-smadata-size-times)
 - [Weighted Moving Average (WMA)](#weighted-moving-average-wmadata-size)
+- [MACD](#MACD-macddata-slowPeriods-fastPeriods-signalPeriods)
 - [BOLLinger bands (BOLL)](#bollinger-bands-bolldata-size-times-options)
 - [Standard Deviations (SD)](#standard-deviations-sddata-size)
 - [Highest High Values (HHV)](#highest-high-values-hhvdata-periods)
@@ -44,8 +46,11 @@ $ npm i finmath
 ```js
 import {
   ma, dma, ema, sma, wma,
+  macd,
+  boll,
   sd,
-  boll
+  hhv, llv,
+  add, sub, mul, div
 } from 'finmath'
 
 ma([1, 2, 3, 4, 5], 2)
@@ -132,6 +137,42 @@ Returns `Data`
 Calculates convolution of the datum points with a fixed weighting function.
 
 Returns `Data`
+
+## MACD: macd(data, slowPeriods?, fastPeriods?, signalPeriods?)
+
+**MACD**, short for Moving Average Convergence / Divergence, is a trading indicator used in technical analysis of stock prices, created by Gerald Appel in the late 1970s.
+
+- **data** `Data` the collection of prices
+- **slowPeriods?** `number=26` the size of slow periods. Defaults to `26`
+- **fastPeriods?** `number=12` the size of fast periods. Defaults to `12`
+- **signalPeriods?** `number=9` the size of periods to calculate the MACD signal line.
+
+Returns `MACDGraph`
+
+```js
+macd(data)
+
+// which returns:
+// {
+//   MACD: <Array>,
+//   signal: <Array>,
+//   histogram: <Array>
+// }
+```
+
+### struct `MACDGraph`
+
+- **MACD** `Data` the difference between [EMAs](https://www.npmjs.com/package/moving-averages#exponential-moving-average-emadata-size) of the fast periods and EMAs of the slow periods.
+- **signal** `Data` the EMAs of the `MACD`
+- **histogram** `Data` `MACD` minus `signal`
+
+In some countries, such as China, the three series above are commonly known as:
+
+```sh
+MACD       -> DIF
+signal     -> DEA
+histogram  -> MACD
+```
 
 ## Bollinger Bands: boll(data, size?, times?, options?)
 
