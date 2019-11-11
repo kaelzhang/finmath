@@ -30,8 +30,8 @@ And all finmath methods also handle empty values.
 - [Weighted Moving Average (WMA)](#weighted-moving-average-wmadata-size)
 - [BOLLinger bands (BOLL)](#bollinger-bands-bolldata-size-times-options)
 - [Standard Deviations (SD)](#standard-deviations-sddata-size)
-- [Highest High Values (HHV)](#)
-- [Lowest Low Values (LLV)](#)
+- [Highest High Values (HHV)](#highest-high-values-hhvdata-periods)
+- [Lowest Low Values (LLV)](#lowest-low-values-llvdata-periods)
 
 ## install
 
@@ -186,7 +186,7 @@ sd([1, 2, 3, 4, 5, 6], 4)
 ## Highest High Values: hhv(data, periods)
 
 - **data** `Data` the array of closing prices.
-- **periods** `Number` the size of periods
+- **periods** `number` the size of periods
 
 Returns `Data` the highest high values of closing prices over the preceding `periods` periods (periods includes the current time).
 
