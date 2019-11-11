@@ -10,25 +10,28 @@
 [![Dependency Status](https://david-dm.org/kaelzhang/finmath.svg)](https://david-dm.org/kaelzhang/finmath)
 -->
 
-# fintech
+# finmath
 
-The complete collection of [FinTech](https://en.wikipedia.org/wiki/Financial_technology) mathematical methods, including:
+The complete collection of mathematical utility methods for [FinTech](https://en.wikipedia.org/wiki/Financial_technology) , including:
 
 - [Moving averages](https://en.wikipedia.org/wiki/Moving_average)
 - [Bollinger bands](https://en.wikipedia.org/wiki/Bollinger_Bands)
 - [Standard deviations](https://en.wikipedia.org/wiki/Standard_deviation)
+- Highest high values / Lowest low values
 
 And all finmath methods also handle empty values.
 
 # Table of Contents
 
-- [simple moving average (MA)](#simple-moving-average-madata-size)
-- [dynamic weighted moving average (DMA)](#dynamic-weighted-moving-average-dmadata-alpha-nohead)
-- [exponential moving average (EMA)](#exponential-moving-average-emadata-size)
-- [smoothed moving average (SMA)](#smoothed-moving-average-smadata-size-times)
-- [weighted moving average (WMA)](#weighted-moving-average-wmadata-size)
-- [bollinger bands (BOLL)](#)
-- [standard deviations (SD)](#)
+- [simple Moving Average (MA)](#simple-moving-average-madata-size)
+- [Dynamic weighted Moving Average (DMA)](#dynamic-weighted-moving-average-dmadata-alpha-nohead)
+- [Exponential Moving Average (EMA)](#exponential-moving-average-emadata-size)
+- [Smoothed Moving Average (SMA)](#smoothed-moving-average-smadata-size-times)
+- [Weighted Moving Average (WMA)](#weighted-moving-average-wmadata-size)
+- [BOLLinger bands (BOLL)](#bollinger-bands-bolldata-size-times-options)
+- [Standard Deviations (SD)](#standard-deviations-sddata-size)
+- [Highest High Values (HHV)](#)
+- [Lowest Low Values (LLV)](#)
 
 ## install
 
@@ -161,10 +164,10 @@ interface Band {
 }
 ```
 
-## sd(data, size)
+## Standard deviations: sd(data, size)
 
 - **data** `Data` the collection of data
-- **size** `Number` the sample size of
+- **size** `number` the sample size of
 
 Returns `Data` the array of standard deviations.
 
@@ -179,6 +182,28 @@ sd([1, 2, 3, 4, 5, 6], 4)
 //   1.118033988749895
 // ]
 ```
+
+## Highest High Values: hhv(data, periods)
+
+- **data** `Data` the array of closing prices.
+- **periods** `Number` the size of periods
+
+Returns `Data` the highest high values of closing prices over the preceding `periods` periods (periods includes the current time).
+
+```js
+const array = [1, 2, 4, 1]
+
+hhv(array, 2)    // [, 2, 4, 4]
+hhv(array)       // 4
+hhv(array, 5)    // [<4 empty items>]
+hhv(array, 1)    // [1, 2, 4, 1]
+
+hhv(array, 2)    // [, 1, 2, 2]
+```
+
+## Lowest Low Values: llv(data, periods)
+
+Instead, returns `Data` the lowest low values.
 
 ## License
 

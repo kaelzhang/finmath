@@ -5,6 +5,7 @@ import ma from './ma'
 import wma from './wma'
 import sd from './sd'
 import boll from './boll'
+import {hhv, llv} from './hhv-llv'
 
 export {
   dma,
@@ -13,5 +14,7 @@ export {
   ma,
   wma,
   sd,
-  boll
+  boll,
+  hhv,
+  llv
 }
