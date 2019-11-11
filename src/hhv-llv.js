@@ -26,10 +26,6 @@ const compare = (data, size, comparer) => {
     return Array(length)
   }
 
-  if (!size) {
-    return data.reduce(comparer)
-  }
-
   if (size <= 1) {
     return data.slice()
   }

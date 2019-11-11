@@ -8,10 +8,6 @@ import {
 export default (data, size) => {
   const {length} = data
 
-  if (!size) {
-    return data.reduce((a, b) => a + b) / length
-  }
-
   if (size <= 1) {
     return data.slice()
   }
