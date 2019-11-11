@@ -1,5 +1,5 @@
 {
-  "name": "moving-averages",
+  "name": "finmath",
   "version": "4.0.5",
   "description": "The FinTech utility collections of simple, cumulative, and exponential moving averages.",
   "main": "lib/index.js",
@@ -24,7 +24,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/kaelzhang/moving-averages.git"
+    "url": "git://github.com/kaelzhang/finmath.git"
   },
   "keywords": [
     "moving average",
@@ -58,7 +58,7 @@
   "author": "kaelzhang",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kaelzhang/moving-averages/issues"
+    "url": "https://github.com/kaelzhang/finmath/issues"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.0",
@@ -71,5 +71,8 @@
     "eslint": "^6.4.0",
     "eslint-plugin-import": "^2.18.2",
     "nyc": "^14.1.1"
+  },
+  "dependencies": {
+    "math-array": "^1.1.2"
   }
 }

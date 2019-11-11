@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/kaelzhang/moving-averages.svg?branch=master)](https://travis-ci.org/kaelzhang/moving-averages)
-[![Coverage](https://codecov.io/gh/kaelzhang/moving-averages/branch/master/graph/badge.svg)](https://codecov.io/gh/kaelzhang/moving-averages)
+[![Build Status](https://travis-ci.org/kaelzhang/finmath.svg?branch=master)](https://travis-ci.org/kaelzhang/finmath)
+[![Coverage](https://codecov.io/gh/kaelzhang/finmath/branch/master/graph/badge.svg)](https://codecov.io/gh/kaelzhang/finmath)
 <!-- optional npm version
 [![NPM version](https://badge.fury.io/js/moving-averages.svg)](http://badge.fury.io/js/moving-averages)
 -->
@@ -7,33 +7,41 @@
 [![npm module downloads per month](http://img.shields.io/npm/dm/moving-averages.svg)](https://www.npmjs.org/package/moving-averages)
 -->
 <!-- optional dependency status
-[![Dependency Status](https://david-dm.org/kaelzhang/moving-averages.svg)](https://david-dm.org/kaelzhang/moving-averages)
+[![Dependency Status](https://david-dm.org/kaelzhang/finmath.svg)](https://david-dm.org/kaelzhang/finmath)
 -->
 
-# moving-averages
+# fintech
 
-The complete collection of [FinTech](https://en.wikipedia.org/wiki/Financial_technology) utility methods for [Moving average](https://en.wikipedia.org/wiki/Moving_average), including:
+The complete collection of [FinTech](https://en.wikipedia.org/wiki/Financial_technology) mathematical methods, including:
+
+- [Moving averages](https://en.wikipedia.org/wiki/Moving_average)
+- [bollinger bands](https://en.wikipedia.org/wiki/Bollinger_Bands)
+
+And all finmath methods also handle empty values.
+
+# Table of Contents
 
 - [simple moving average (MA)](#simple-moving-average-madata-size)
 - [dynamic weighted moving average (DMA)](#dynamic-weighted-moving-average-dmadata-alpha-nohead)
 - [exponential moving average (EMA)](#exponential-moving-average-emadata-size)
 - [smoothed moving average (SMA)](#smoothed-moving-average-smadata-size-times)
 - [weighted moving average (WMA)](#weighted-moving-average-wmadata-size)
-
-And `moving-averages` will also handle empty values.
+- [bollinger bands (BOLL)](#)
 
 ## install
 
 ```sh
-$ npm i moving-averages
+$ npm i finmath
 ```
 
 ## usage
 
 ```js
 import {
-  ma, dma, ema, sma, wma
-} from 'moving-averages'
+  ma, dma, ema, sma, wma,
+  sd,
+  boll
+} from 'finmath'
 
 ma([1, 2, 3, 4, 5], 2)
 // [<1 empty item>, 1.5, 2.5, 3.5, 4.5]
@@ -42,7 +50,7 @@ ma([1, 2, 3, 4, 5], 2)
 ## Simple Moving Average: `ma(data, size)`
 
 ```ts
-type Data = Array<number|Empty>
+type Data = EmptyableArray<number>
 ```
 
 - **data** `Data` the collection of data inside which empty values are allowed. Empty values are useful if a stock is suspended.
@@ -78,13 +86,13 @@ And all of the other moving average methods have similar mechanism.
 ## Dynamic Weighted Moving Average: `dma(data, alpha, noHead)`
 
 - **data**
-- **alpha** `Number|Array.<Number>` the coefficient or list of coefficients `alpha` represents the degree of weighting decrease for each datum.
+- **alpha** `Data` the coefficient or list of coefficients `alpha` represents the degree of weighting decrease for each datum.
   - If `alpha` is a number, then the weighting decrease for each datum is the same.
   - If `alpha` larger than `1` is invalid, then the return value will be an empty array of the same length of the original data.
   - If `alpha` is an array, then it could provide different decreasing degree for each datum.
 - **noHead** `Boolean=` whether we should abandon the first DMA.
 
-Returns `Array.<Number|undefined>`
+Returns `Data`
 
 ```js
 dma([1, 2, 3], 2)    // [<3 empty items>]
@@ -102,7 +110,7 @@ Calulates the most frequent used exponential average which covers about 86% of t
 - **data**
 - **size** `Number` the size of the periods.
 
-Returns `Array.<Number|undefined>`
+Returns `Data`
 
 ## Smoothed Moving Average: `sma(data, size, times)`
 
@@ -112,18 +120,45 @@ Also known as the modified moving average or running moving average, with `alpha
 - **size**
 - **times** `Number=1`
 
-Returns `Array.<Number|undefined>`
+Returns `Data`
 
 ## Weighted Moving Average: `wma(data, size)`
 
 Calculates convolution of the datum points with a fixed weighting function.
 
-Returns `Array.<Number|undefined>`
+Returns `Data`
 
-## Related FinTech Modules
+## boll(data, size?, times?, options?)
 
-- [bollinger-bands](https://www.npmjs.com/package/bollinger-bands): Fintach math utility to calculate bollinger bands.
-- [s-deviation](https://www.npmjs.com/package/s-deviation): Math utility to calculate standard deviations.
-- [moving-averages](https://www.npmjs.com/package/moving-averages): The complete collection of utility methods for [Moving average](https://en.wikipedia.org/wiki/Moving_average).
+```js
+boll([1, 2, 4, 8], 2, 2)
+// {
+//   upper: [, 2.5, 5, 10],
+//   mid  : [, 1.5, 3, 6],
+//   lower: [, 0.5, 1, 2]
+// }
+```
 
-MIT
+- **data** `Data` the collection of data
+- **size?** `Number=20` the period size, defaults to `20`
+- **times?** `Number=2` the times of standard deviation between the upper band and the moving average.
+- **options?** `Object=` optional options
+  - **ma?** `Data=` the moving averages of the provided `datum` and period `size`. This option is used to prevent duplicate calculation of moving average.
+  - **sd?** `Data=` the standard average of the provided `datum` and period `size`
+
+Returns `Array<Band>` the array of the `Band` object.
+
+```ts
+interface Band {
+  // the value of the upper band
+  upper: number
+  // the value middle band (simple moving average)
+  mid: number
+  // the value of the lower band
+  lower: number
+}
+```
+
+## License
+
+[MIT](LICENSE)
