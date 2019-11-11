@@ -15,7 +15,8 @@
 The complete collection of [FinTech](https://en.wikipedia.org/wiki/Financial_technology) mathematical methods, including:
 
 - [Moving averages](https://en.wikipedia.org/wiki/Moving_average)
-- [bollinger bands](https://en.wikipedia.org/wiki/Bollinger_Bands)
+- [Bollinger bands](https://en.wikipedia.org/wiki/Bollinger_Bands)
+- [Standard deviations](https://en.wikipedia.org/wiki/Standard_deviation)
 
 And all finmath methods also handle empty values.
 
@@ -27,6 +28,7 @@ And all finmath methods also handle empty values.
 - [smoothed moving average (SMA)](#smoothed-moving-average-smadata-size-times)
 - [weighted moving average (WMA)](#weighted-moving-average-wmadata-size)
 - [bollinger bands (BOLL)](#)
+- [standard deviations (SD)](#)
 
 ## install
 
@@ -118,7 +120,7 @@ Also known as the modified moving average or running moving average, with `alpha
 
 - **data**
 - **size**
-- **times** `Number=1`
+- **times?** `Number=1`
 
 Returns `Data`
 
@@ -128,7 +130,7 @@ Calculates convolution of the datum points with a fixed weighting function.
 
 Returns `Data`
 
-## boll(data, size?, times?, options?)
+## Bollinger Bands: boll(data, size?, times?, options?)
 
 ```js
 boll([1, 2, 4, 8], 2, 2)
@@ -157,6 +159,25 @@ interface Band {
   // the value of the lower band
   lower: number
 }
+```
+
+## sd(data, size)
+
+- **data** `Data` the collection of data
+- **size** `Number` the sample size of
+
+Returns `Data` the array of standard deviations.
+
+```js
+sd([1, 2, 4, 8], 2)         // [<1 empty item>, 0.5, 1, 2]
+
+sd([1, 2, 3, 4, 5, 6], 4)
+// [
+//   <3 empty items>,
+//   1.118033988749895,
+//   1.118033988749895,
+//   1.118033988749895
+// ]
 ```
 
 ## License

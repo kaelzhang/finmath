@@ -49,7 +49,7 @@
       "babelrc": true
     },
     "files": [
-      "test/*.js"
+      "test/*.test.js"
     ]
   },
   "engines": {
