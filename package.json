@@ -1,6 +1,6 @@
 {
   "name": "finmath",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "The FinTech utility collections of simple, cumulative, and exponential moving averages.",
   "main": "lib/index.js",
   "module": "src/index.js",

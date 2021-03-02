@@ -10,6 +10,16 @@
 [![Dependency Status](https://david-dm.org/kaelzhang/finmath.svg)](https://david-dm.org/kaelzhang/finmath)
 -->
 
+# MAINTENANCE WARNING
+
+This module is lack of maintenance.
+
+If you are familiar with python programming maybe you could check [**stock-pandas**](https://github.com/kaelzhang/stock-pandas) which provides powerful statistic indicators support, and is backed by [`numpy`](https://numpy.org/) and [`pandas`](https://pandas.pydata.org/).
+
+The performance of [**stock-pandas**](https://github.com/kaelzhang/stock-pandas) is many times higher than JavaScript libraries, and can be directly used by machine learning programs.
+
+****
+
 # finmath
 
 The complete collection of mathematical utility methods for [FinTech](https://en.wikipedia.org/wiki/Financial_technology) , including:
